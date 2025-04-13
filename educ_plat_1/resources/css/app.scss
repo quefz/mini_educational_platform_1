@@ -1,0 +1,31 @@
+@use 'bootstrap' as *;
+
+$colors: #D7A3B6, #9783A9, #54387F, #567A04, #D4CF6D;
+$font-stack: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif;
+
+header {
+    font-family: $font-stack;
+    background-color: nth($colors , 1);
+    padding: 4px 0;
+}
+
+body {
+    font-family: $font-stack;
+    margin: 10px;
+}
+
+footer {
+    font-family: $font-stack;
+    background-color: ($colors , 2);
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 1em 0;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1200px;
+}
