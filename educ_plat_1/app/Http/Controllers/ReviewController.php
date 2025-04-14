@@ -16,13 +16,13 @@ class ReviewController extends Controller
     {
         $reviews = $course->reviews()->get();
 
-        return view('courses.reviews.index', compact('course', 'revirews'));
+        return view('courses.reviews.index', compact('course', 'reviews'));
     }
 
     public function store(Request $request, Course $course)
     {
         $request->validate([
-            'rating' => 'required|integer|min:1|max|5',
+            'rating' => 'required|integer|min:1|max:5',
             'comment' => 'nullable|string|max:1000',
         ]);
 

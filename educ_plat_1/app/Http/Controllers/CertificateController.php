@@ -38,8 +38,8 @@ class CertificateController extends Controller
         if($completedLessonsCount < $totalLessonsCount)
         {
             return back()->with('error',
-            'Course not completed! {$completedLessonsCount} of
-            {$totalLessonsCount} lessons completed.');
+            'Course not completed!'. $completedLessonsCount . 'of' .
+            $totalLessonsCount . 'lessons completed.');
         }
 
         $certificate = $course->certificates()->create([
