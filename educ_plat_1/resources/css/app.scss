@@ -1,7 +1,7 @@
 @use 'bootstrap' as *;
 
 $colors: #D7A3B6, #9783A9, #54387F, #567A04, #D4CF6D;
-$font-stack: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif;
+$font-stack: "Times New Roman", Times, Baskerville, Georgia, serif;
 
 header {
     font-family: $font-stack;
@@ -16,11 +16,31 @@ body {
 
 footer {
     font-family: $font-stack;
-    background-color: ($colors , 2);
+    background-color: nth($colors , 2);
+    color: white;
+    padding: 20px 0;
+    margin-top: 30px;
+    text-align: center;
+}
+
+a {
+    color: nth($colors, 1);
+    text-decoration: none;
+    padding: 2px;
+    &:hover {
+        text-decoration: underline;
+    }
+    &:visited {
+        color: nth($colors, 5);
+    }
+}
+
+p {
+    font-family: $font-stack;
 }
 
 .title {
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: bold;
     margin: 1em 0;
 }
@@ -28,4 +48,27 @@ footer {
 .container {
     margin: 0 auto;
     max-width: 1200px;
+    padding: 0 15px;
+}
+
+.footer-text {
+    line-height: 1.6;
+
+    p {
+        margin: 5px 0;
+
+        &:first-child {
+            font-weight: bold;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        margin: 5px;
+    }
+
+    .title {
+        font-size: 1.1rem;
+    }
 }
