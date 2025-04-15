@@ -18,12 +18,12 @@ class UserController extends Controller
         }
 
         $user->enrolledCourses()->attach($course->id);
-        return back()->with('success', 'Registration for the course was successful');
+        return back()->with('success', 'Successfully enrolled in the course.');
     }
 
     public function leave(Request $request, Course $course)
     {
         $request->user()->enrolledCourses()->detach($course->id);
-        return back()->with('success', 'Вы покинули курс.');
+        return back()->with('success', 'You have successfully left the course.');
     }
 }

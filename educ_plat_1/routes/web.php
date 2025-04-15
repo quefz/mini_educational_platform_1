@@ -73,7 +73,7 @@ Route::get('/auth/login', [LoginController::class, 'show'])
     ->name('login.show');
 Route::post('/auth/login', [LoginController::class, 'login'])
     ->name('login.login');
-Route::post('/auth/logout', [LoginController::class, 'logout']  )
+Route::post('/', [LoginController::class, 'logout']  )
     ->name('login.logout');
 
 Route::get('/auth/register', [RegisterController::class, 'show'])

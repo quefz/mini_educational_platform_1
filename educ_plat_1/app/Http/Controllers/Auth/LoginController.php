@@ -16,20 +16,21 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $credentails = $request->validate([
-            'email' => 'required|email',
+        $credentials = $request->validate([
+            'name' => 'required',
             'password' => 'required',
         ]);
 
-        if(Auth::attempt($credentails))
+        if(Auth::attempt($credentials))
         {
             $request->session()->regenerate();
-            return redirect()->intended('/');
+            return redirect()->intended('/')
+                ->with('success', 'You have successfully logged in!');
         }
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.'
-        ]);
+        ])->withInput();
     }
 
     public function logout(Request $request)
@@ -37,8 +38,8 @@ class LoginController extends Controller
         Auth::logout();
 
         $request->session()->invalidate();
-        $request->sessino()->regenerateToken();
+        $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/')->with('success', 'You have been logged out.');
     }
 }
