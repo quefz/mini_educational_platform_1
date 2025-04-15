@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -32,8 +34,6 @@ Route::get('/courses/{course}', [CourseController::class, 'show'])
 Route::middleware('auth')->group(function() {
     Route::get('/courses/{course}/lessons', [LessonController::class, 'index'])
         ->name('lessons.index');
-    Route::get('/courses/{course}/lessons/{lesson}', [LessonController::class, 'show'])
-        ->name('lessons.show');
     Route::get('/courses/{course}/lessons/create', [LessonController::class, 'create'])
         ->name('lessons.create');
     Route::post('/courses/{course}/lessons', [LessonController::class, 'store'])
@@ -46,12 +46,16 @@ Route::middleware('auth')->group(function() {
         ->name('lessons.destroy');
     Route::post('/courses/{course}/lessons/{lesson}/complete', [LessonController::class, 'complete'])
         ->name('lessons.complete');
+    Route::get('/courses/{course}/lessons/{lesson}', [LessonController::class, 'show'])
+        ->name('lessons.show');
 });
 
-Route::post('users/{user}/enroll/{course}', [UserController::class, 'enroll'])
-    ->name('users.enroll');
-Route::post('users/{user}/leave/{course}', [UserController::class, 'leave'])
-    ->name('users.leave');
+Route::middleware('auth')->group(function() {
+    Route::post('users/{user}/enroll/{course}', [UserController::class, 'enroll'])
+        ->name('users.enroll');
+    Route::post('users/{user}/leave/{course}', [UserController::class, 'leave'])
+        ->name('users.leave');
+});
 
 Route::get('/certificates/{certificate}', [CertificateController::class, 'show'])
     ->name('certificates.show');
@@ -64,3 +68,15 @@ Route::middleware('auth')->post('/courses/{course}/reviews', [ReviewController::
     ->name('reviews.store');
 Route::middleware('auth')->delete('/courses/{course}/reviews/{review}', [ReviewController::class, 'destroy'])
     ->name('reviews.destroy');
+
+Route::get('/auth/login', [LoginController::class, 'show'])
+    ->name('login.show');
+Route::post('/auth/login', [LoginController::class, 'login'])
+    ->name('login.login');
+Route::post('/auth/logout', [LoginController::class, 'logout']  )
+    ->name('login.logout');
+
+Route::get('/auth/register', [RegisterController::class, 'show'])
+    ->name('register.show');
+Route::post('/auth/register', [RegisterController::class, 'register'])
+    ->name('register.register');

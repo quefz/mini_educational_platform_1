@@ -4,7 +4,8 @@ namespace App\Providers;
 
 use App\Models\Course;
 use App\Policies\CoursePolicy;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,20 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->registerPolicies();
+        $this->app['router']->matched(function (\Illuminate\Routing\Events\RouteMatched $e)
+        {
+            if(in_array('web', $e->route->middleware()))
+            {
+                if(Auth::check())
+                {
+                    if(Auth::user()->is_admin)
+                    {
+                        return redirect()->route('admin.dashboard');
+                    }
+                    return redirect()->route('/');
+                }
+            }
+        });
     }
 }
