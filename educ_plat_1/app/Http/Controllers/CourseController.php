@@ -70,7 +70,13 @@ class CourseController extends Controller
     {
         $this->authorize('update', $course);
 
-        return view('pages.courses.edit', compact('course'));
+        return view('pages.courses.edit', [
+            'course' => $course,
+            'title' => old('title', $course->title),
+            'description' => old('description', $course->description),
+            'price' => old('price', $course->price),
+            'level' => old('level', $course->level)
+        ]);
     }
 
     public function update(CourseUpdateRequest $request, Course $course)
