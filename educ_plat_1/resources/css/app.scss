@@ -1,12 +1,13 @@
 @use 'bootstrap' as *;
 
-$colors: #D7A3B6, #9783A9, #54387F, #567A04, #D4CF6D;
+$colors: #D7A3B6, #9783A9, #54387F, #DDBEAA, #F5BB2C;
 $font-stack: "Times New Roman", Times, Baskerville, Georgia, serif;
 
 header {
     font-family: $font-stack;
     background-color: nth($colors , 1);
     padding: 4px 0;
+    color: white;
 }
 
 body {
@@ -24,7 +25,7 @@ footer {
 }
 
 a {
-    color: nth($colors, 1);
+    color: nth($colors, 4);
     text-decoration: none;
     padding: 2px;
     &:hover {
@@ -37,6 +38,14 @@ a {
 
 p {
     font-family: $font-stack;
+}
+
+.breadcrumb {
+    margin-top: 10;
+}
+
+.breadcrumb-item {
+    color: nth($colors, 3);
 }
 
 .title {
