@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Course\CourseCreateRequest;
+use App\Http\Requests\Course\CourseUpdateRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class CourseController extends Controller
 {
+    use AuthorizesRequests;
+
     public function __construct()
     {
         $this->middleware('auth')->except(['index', 'show']);
@@ -43,15 +48,9 @@ class CourseController extends Controller
         return view('pages.courses.create');
     }
 
-    public function store(Request $request)
+    public function store(CourseCreateRequest $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required',
-            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'price' => 'nullable|numeric|min:0',
-            'level' => 'required|in:beginner,intermediate,advanced'
-        ]);
+        $validated = $request->validated();
 
         if($request->hasFile('thumbnail'))
         {
@@ -74,17 +73,11 @@ class CourseController extends Controller
         return view('pages.courses.edit', compact('course'));
     }
 
-    public function update(Request $request, Course $course)
+    public function update(CourseUpdateRequest $request, Course $course)
     {
         $this->authorize('update', $course);
 
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'price' => 'nullable|numeric|min:0',
-            'level' => 'required|in:beginner,intermediate,advanced',
-        ]);
+        $validated = $request->validated();
 
         if ($request->hasFile('thumbnail')) {
             if ($course->thumbnail && Storage::disk('public')->exists($course->thumbnail)) {

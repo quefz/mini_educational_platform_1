@@ -26,18 +26,11 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPolicies();
+
         $this->app['router']->matched(function (\Illuminate\Routing\Events\RouteMatched $e)
         {
-            if(in_array('web', $e->route->middleware()))
-            {
-                if(Auth::check())
-                {
-                    if(Auth::user()->is_admin)
-                    {
-                        return redirect()->route('admin.dashboard');
-                    }
-                    return redirect()->route('/');
-                }
+            if (in_array('web', $e->route->middleware()) && Auth::check()) {
+                return redirect()->route('/');
             }
         });
     }
