@@ -32,7 +32,7 @@
                             @endguest
                         </ul>
                     </nav>
-            </div>
+                </div>
         </header>
         <main>
             <div class="container">
