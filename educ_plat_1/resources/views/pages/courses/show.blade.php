@@ -23,8 +23,10 @@
                     <option value = 'soft'>Soft Delete</option>
                     <option value = 'force'>Complete removal</option>
                 </select>
-                <input type = 'submit' class = 'btn btn-danger mt-2'
+                <button type = 'submit' class = 'btn btn-danger mt-2'
                     onclick="return confirm('Are you sure?')">
+                    Delete Course
+                </button>
             </form>
         @endcan
     </div>
