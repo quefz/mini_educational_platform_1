@@ -10,7 +10,7 @@
         </ol>
     </nav>
 
-    <form action = '{{ route('courses.update', $course) }}' method = 'POST'>
+    <form action = '{{ route('courses.update', $course) }}' method = 'POST' enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <h1>Edit Course</h1>

@@ -100,13 +100,29 @@ class CourseController extends Controller
             ->with('success', 'Course updated successfully.');
     }
 
-    public function destroy(Course $course)
+    public function destroy(Request $request, Course $course)
     {
         $this->authorize('delete', $course);
+
+        $deleteType = $request->input(
+            'delete_type',
+            'soft'
+        );
+
+        if ($deleteType === 'force')
+        {
+            $course->forceDelete();
+            $message = 'The course has been completely removed.';
+        }
+        else
+        {
+            $course->delete();
+            $message = 'The course moved to cart.';
+        }
 
         $course->delete();
 
         return redirect()->route('courses.index')
-            ->with('success', 'Course deleted.');
+            ->with('success', $message);
     }
 }

@@ -9,7 +9,7 @@
         </ol>
     </nav>
 
-    <form action = '{{ route('courses.store') }}' method = 'POST'>
+    <form action = '{{ route('courses.store') }}' method = 'POST' enctype="multipart/form-data">
         @csrf
         <h1>Add course</h1>
 

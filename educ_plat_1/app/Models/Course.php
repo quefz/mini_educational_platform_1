@@ -18,6 +18,8 @@ class Course extends Model
         'user_id'
     ];
 
+    protected $dates = ['deleted_at'];
+
     protected $casts = [
         'price' => 'decimal:2'
     ];
